@@ -1,0 +1,17 @@
+name: Publish GitHub Release
+description: Create a new Release based on the release notes from the associated pull request
+inputs:
+  version:
+    description: The version for this release
+    required: true
+outputs:
+  release-html-url:
+    description: The url for the Release page created by this action
+    value: ${{ steps.publish-release.outputs.release-html-url }}
+runs:
+  using: composite
+  steps:
+    - name: Publish GitHub Release
+      id: publish-release
+      shell: pwsh
+      run: ${{ github.action_path }}/action.ps1 -Version '${{ inputs.version }}'
