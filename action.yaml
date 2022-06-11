@@ -15,3 +15,5 @@ runs:
       id: publish-release
       shell: pwsh
       run: ${{ github.action_path }}/action.ps1 -Version '${{ inputs.version }}'
+      env:
+        GITHUB_TOKEN: $${ secrets.GITHUB_TOKEN }}
