@@ -8,8 +8,7 @@ function Initialize-GitHubActionTasks {
     $ErrorActionPreference = 'Stop'
     $ProgressPreference = 'SilentlyContinue'
   
-    $OwnerName = (Get-ActionRepo).Owner
-    $RepositoryName = (Get-ActionRepo).Repo
+    $OwnerName, $RepositoryName = $env:GITHUB_REPOSITORY -split '/'
     Set-GitHubConfiguration -DefaultOwnerName $OwnerName `
         -DefaultRepositoryName $RepositoryName `
         -DisableTelemetry `
