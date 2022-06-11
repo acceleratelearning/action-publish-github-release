@@ -7,8 +7,10 @@ param (
 [String]$GitHubToken = $env:GITHUB_TOKEN,
 [String]$GitHubSha = $env:GITHUB_SHA
 
-Install-Module -Name 'hugoalh.GitHubActionsToolkit' -AcceptLicense
-Install-Module -Name PowerShellForGitHub
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+
+Install-Module -Name 'hugoalh.GitHubActionsToolkit' -AcceptLicense -Scope Local
+Install-Module -Name PowerShellForGitHub -Scope Local
 Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
 Import-Module PowerShellForGitHub
 
