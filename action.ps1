@@ -9,8 +9,8 @@ param (
 
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
-Install-Module -Name 'hugoalh.GitHubActionsToolkit' -AcceptLicense -Scope Local
-Install-Module -Name PowerShellForGitHub -Scope Local
+Install-Module -Name 'hugoalh.GitHubActionsToolkit' -AcceptLicense -Scope CurrentUser
+Install-Module -Name PowerShellForGitHub -Scope CurrentUser
 Import-Module -Name 'hugoalh.GitHubActionsToolkit' -Scope 'Local'
 Import-Module PowerShellForGitHub
 
