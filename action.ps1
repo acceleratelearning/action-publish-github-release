@@ -16,7 +16,7 @@ Import-Module PowerShellForGitHub
 
 . $PSScriptRoot/Add-GitHubPullRequestReviewAdditionalProperties.ps1
 . $PSScriptRoot/Initialize-GitHubActionTasks.ps1
-. $PSScriptRoot/New-GitHubRequestReview.ps1
+. $PSScriptRoot/New-GitHubPullRequestReview.ps1
 . $PSScriptRoot/Write-Host.ps1
  
   
