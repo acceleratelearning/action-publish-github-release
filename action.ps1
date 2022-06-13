@@ -33,9 +33,7 @@ else {
 }
 
 
-$major_tag = "$($Version.Major)"
-$major_minor_tag = "$($Version.Major).$($Version.Minor)"
-$tag = $Version
+$tag = "$Version"
 
 Write-Host -ForegroundColor Cyan "Publishing Release $tag"
 Write-Host ''
@@ -44,10 +42,8 @@ Write-Host -ForegroundColor Cyan "Release Notes"
 $body | Write-Host
 Write-Host ''
 
-Write-Host -ForegroundColor Cyan "Validating tags: $tag, $major_minor_tag, $major_tag"
+Write-Host -ForegroundColor Cyan "Validating tags: $tag"
 Set-GitTag $tag $GitHubSha
-Set-GitTag $major_minor_tag $GitHubSha
-Set-GitTag $major_tag $GitHubSha
 Write-Host ''
 
 Write-Host -ForegroundColor Cyan "Pushing tags"
