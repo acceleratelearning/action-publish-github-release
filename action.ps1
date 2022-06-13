@@ -28,8 +28,8 @@ if ($pull_request) {
     $body = $pull_request.body
 }
 else {
-    Write-ActionWarning "No pull request found for $GitHubSha, no release information to publish"
-    exit 0
+    Write-GitHubActionsWarning "No pull request found for $GitHubSha, no release information to publish"
+    $body = "# $Version"
 }
 
 

@@ -12,8 +12,6 @@ function Initialize-GitHubActionTasks {
 
     $expandedToken = $GitHubToken -replace '([0-9a-f]{2})', '$1 '
     Write-Host "GitHubToken = $expandedToken"
-    Write-Host "OwnerName = $OwnerName"
-    Write-Host "RepositoryName = $RepositoryName"
 
     Set-GitHubConfiguration -DefaultOwnerName $OwnerName `
         -DefaultRepositoryName $RepositoryName `
