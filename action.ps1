@@ -4,8 +4,6 @@ param (
     [Version]$Version
 )
 
-[String]$GitHubToken = $env:GITHUB_TOKEN,
-[String]$GitHubSha = $env:GITHUB_SHA
 
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
 
@@ -19,9 +17,10 @@ Import-Module PowerShellForGitHub
 . $PSScriptRoot/New-GitHubPullRequestReview.ps1
 . $PSScriptRoot/Write-Host.ps1
  
-  
-Initialize-GitHubActionTasks $GitHubToken
 
+Initialize-GitHubActionTasks $env:GITHUB_TOKEN
+
+$GitHubSha = $env:GITHUB_SHA
 Write-Host -ForegroundColor Green "Getting Pull Request for $GitHubSha"
 $pull_request = Get-GitHubPullRequest -State Closed | Where-Object { $_.merge_commit_sha -eq $GitHubSha }
 if ($pull_request) {
