@@ -4,9 +4,6 @@ inputs:
   version:
     description: The version for this release
     required: true
-  github-token:
-    description: GitHub token for authenticating with REST api
-    required: true
 outputs:
   release-html-url:
     description: The url for the Release page created by this action
@@ -19,4 +16,4 @@ runs:
       shell: pwsh
       run: ${{ github.action_path }}/action.ps1 -Version '${{ inputs.version }}'
       env:
-        GITHUB_TOKEN: ${{ inputs.github-token }}
+        GITHUB_TOKEN: ${{ github.token }}
