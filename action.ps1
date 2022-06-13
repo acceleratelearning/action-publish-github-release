@@ -22,6 +22,7 @@ Import-Module PowerShellForGitHub
   
 Initialize-GitHubActionTasks $GitHubToken
 
+Write-Host -ForegroundColor Green "Getting Pull Request for $GitHubSha"
 $pull_request = Get-GitHubPullRequest -State Closed | Where-Object { $_.merge_commit_sha -eq $GitHubSha }
 if ($pull_request) {
     Write-Host -ForegroundColor Cyan "Getting release notes from $($pull_request.html_url)"

@@ -9,12 +9,19 @@ function Initialize-GitHubActionTasks {
     $ProgressPreference = 'SilentlyContinue'
   
     $OwnerName, $RepositoryName = $env:GITHUB_REPOSITORY -split '/'
+
+    $expandedToken = $GitHubToken -replace '([0-9a-f]{2})', '$1 '
+    Write-Host "GitHubToken = $expandedToken"
+    Write-Host "OwnerName = $OwnerName"
+    Write-Host "RepositoryName = $RepositoryName"
+
     Set-GitHubConfiguration -DefaultOwnerName $OwnerName `
         -DefaultRepositoryName $RepositoryName `
         -DisableTelemetry `
         -DisableLogging `
         -DisableUpdateCheck `
-        -SessionOnly
+        -SessionOnly `
+        -Verbose
   
     $credential = New-Object System.Management.Automation.PSCredential "x", ($GitHubToken | ConvertTo-SecureString -AsPlainText -Force)
     Set-GitHubAuthentication -Credential $credential -SessionOnly
