@@ -8,6 +8,9 @@ outputs:
   release-html-url:
     description: The url for the Release page created by this action
     value: ${{ steps.publish-release.outputs.release-html-url }}
+  release-notes:
+    description: The release notes
+    value: ${{ steps.publish-release.outputs.release-notes }}
 runs:
   using: composite
   steps:

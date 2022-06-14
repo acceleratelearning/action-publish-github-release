@@ -25,11 +25,11 @@ Write-Host -ForegroundColor Green "Getting Pull Request for $GitHubSha"
 $pull_request = Get-GitHubPullRequest -State Closed | Where-Object { $_.merge_commit_sha -eq $GitHubSha }
 if ($pull_request) {
     Write-Host -ForegroundColor Cyan "Getting release notes from $($pull_request.html_url)"
-    $body = $pull_request.body
+    $releaseNotes = $pull_request.body
 }
 else {
     Write-GitHubActionsWarning "No pull request found for $GitHubSha, no release information to publish"
-    $body = "# $Version"
+    $releaseNotes = "# $Version"
 }
 
 
@@ -56,14 +56,15 @@ Write-Host -ForegroundColor Cyan "Checking for existing release for $($tag)"
 $release = Get-GitHubRelease | Where-Object { $_.tag_name -eq $tag }
 if ($release) {
     Write-Host -ForegroundColor Yellow "Updating existing release $($tag) with commit $GitHubSha"
-    Set-GitHubRelease -ReleaseId $release.ID -Tag $tag -Name $tag -Committish $GitHubSha -Body $body
+    Set-GitHubRelease -ReleaseId $release.ID -Tag $tag -Name $tag -Committish $GitHubSha -Body $releaseNotes
     $release = Get-GitHubRelease -Tag $tag
 }
 else {
     Write-Host -ForegroundColor Green "Creating new release for $($tag) with commit $GitHubSha"
-    $release = New-GitHubRelease -Tag $tag -Name $tag -Committish $GitHubSha -Body $body
+    $release = New-GitHubRelease -Tag $tag -Name $tag -Committish $GitHubSha -Body $releaseNotes
 }
 
 Set-GitHubActionsOutput 'release-html-url' $release.html_url
+Set-GitHubActionsOutput 'release-notes' $releaseNotes
 Write-GitHubActionsNotice "Release create from pull request $($pull_request.html_url)"
 Write-GitHubActionsNotice "Release information can be found at $($release.html_url)"
