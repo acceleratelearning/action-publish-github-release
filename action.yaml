@@ -21,6 +21,6 @@ runs:
     - name: Publish GitHub Release
       id: publish-release
       shell: pwsh
-      run: ${{ github.action_path }}/action.ps1 -Version '${{ inputs.version }}' -AddMajorMinorTags '${{ inputs.add-major-minor-tags }}''
+      run: ${{ github.action_path }}/action.ps1 -Version '${{ inputs.version }}' -AddMajorMinorTags '${{ inputs.add-major-minor-tags }}'
       env:
         GITHUB_TOKEN: ${{ github.token }}
