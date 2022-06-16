@@ -22,4 +22,5 @@ jobs:
         uses: ./
         with:
           version: "${{ steps.get-next-release-version.outputs.next-version }}"
+          prefix: v
           add-major-minor-tags: true
