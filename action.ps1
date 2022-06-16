@@ -1,7 +1,8 @@
 #!/usr/bin/env pwsh
 [CmdletBinding()]
 param (
-    [Version]$Version
+    [Version]$Version,
+    [String]$AddMajorMinorTags   # Needs to be string since GitHub Actions only support string parameters
 )
 
 
@@ -32,7 +33,6 @@ else {
     $releaseNotes = "# $Version"
 }
 
-
 $tag = "$Version"
 
 Write-Host -ForegroundColor Cyan "Publishing Release $tag"
@@ -44,10 +44,19 @@ Write-Host ''
 
 Write-Host -ForegroundColor Cyan "Validating tags: $tag"
 Set-GitTag $tag $GitHubSha
+if ($AddMajorMinorTags -eq "true") {
+    $major_tag = "$($Version.Major)"
+    $major_minor_tag = "$($Version.Major).$($Version.Minor)"
+    Set-GitTag $major_minor_tag $GitHubSha
+    Set-GitTag $major_tag $GitHubSha
+}
+    
 Write-Host ''
 
 Write-Host -ForegroundColor Cyan "Pushing tags"
 git push origin $branch_name --tags
+
+
 Write-Host ''
 
 Write-Host -ForegroundColor Cyan "Checking for existing release for $($tag)"
