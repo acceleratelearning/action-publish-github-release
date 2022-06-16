@@ -57,8 +57,9 @@ Write-Host ''
 Write-Host -ForegroundColor Cyan "Pushing tags"
 if ($AddMajorMinorTags -eq "true") {
     # Delete the sematic tags from the remote
-    git push origin refs/tags/$major_tag
-    git push origin refs/tags/$major_minor_tag
+    git push --delete origin $major_tag
+    git push --delete origin $major_minor_tag
+    $LASTEXITCODE = 0
 }
 git push origin $branch_name --tags
 
