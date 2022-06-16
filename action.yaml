@@ -4,6 +4,10 @@ inputs:
   version:
     description: The version for this release
     required: true
+  prefix:
+    description: Add prefice to begining of the tag
+    required: false
+    default: ""
   add-major-minor-tags:
     description: Add a Major and a Major.Minor tag
     required: false
@@ -21,6 +25,6 @@ runs:
     - name: Publish GitHub Release
       id: publish-release
       shell: pwsh
-      run: ${{ github.action_path }}/action.ps1 -Version '${{ inputs.version }}' -AddMajorMinorTags '${{ inputs.add-major-minor-tags }}'
+      run: ${{ github.action_path }}/action.ps1 -Version '${{ inputs.version }}' -Prefix '${{ inputs.prefix }}' -AddMajorMinorTags '${{ inputs.add-major-minor-tags }}'
       env:
         GITHUB_TOKEN: ${{ github.token }}
